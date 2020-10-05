@@ -10,19 +10,6 @@ const bodyParser = require("body-parser");
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, "client/build")));
 
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "client/build")));
-
-  app.get("*", (req, res) => {
-    res.sendfile(path.join((__dirname = "client/build/index.html")));
-  });
-}
-
-//build mode
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname + "/client/public/index.html"));
-});
-
 app.post("/api/pokemon/", async (req, res) => {
   let offset = req.body.page;
   var pokemon;
@@ -87,6 +74,11 @@ app.post("/api/pokeinfo/", async (req, res) => {
   }
 
   res.json(pokemon);
+});
+
+//no request match
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname + "/client/build/index.html"));
 });
 
 //const port = 5000;
