@@ -72,7 +72,7 @@ app.post("/api/pokeinfo/", async (req, res) => {
   res.json(pokemon);
 });
 
-const port = 5000;
+//const port = 5000;
 
 function doRequest(url) {
   return new Promise(function (resolve, reject) {
@@ -86,4 +86,6 @@ function doRequest(url) {
   });
 }
 
-app.listen(port, () => console.log(`Server running on port ${port}`));
+app.listen(process.env.PORT || 5000, () =>
+  console.log(`Server running on port ${port}`)
+);
