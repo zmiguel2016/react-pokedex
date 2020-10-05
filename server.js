@@ -78,6 +78,7 @@ app.post("/api/pokeinfo/", async (req, res) => {
 
 //no request match
 app.get("*", (req, res) => {
+  console.log("no rquest rrro");
   res.sendFile(path.join(__dirname + "/client/build/index.html"));
 });
 
