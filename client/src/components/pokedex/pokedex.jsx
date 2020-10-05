@@ -181,7 +181,7 @@ function Pokedex() {
           hidden={!data.previous}
           onClick={handleClickPrev}
         >
-          prev
+          Prev
         </Button>
         <Button
           className="mb-3 addbtn"
@@ -189,7 +189,7 @@ function Pokedex() {
           hidden={!data.next}
           onClick={handleClickNext}
         >
-          next
+          Next
         </Button>
 
         <Table striped bordered hover>
