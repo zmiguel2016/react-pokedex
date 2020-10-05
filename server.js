@@ -1,10 +1,22 @@
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "client/build")));
+  app.get("*", (req, res) => {
+    res.sendfile(path.join((__dirname = "client/build/index.html")));
+  });
+}
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname + "/client/public/index.html"));
+});
 const express = require("express");
+const path = require("path");
+
 const request = require("request");
 const start_url = "https://pokeapi.co/api/v2/pokemon/?offset=";
 const end_url = "&limit=20";
 const app = express();
 const bodyParser = require("body-parser");
 app.use(bodyParser.json());
+app.use(express.static(path.join(__dirname, "client/build")));
 
 app.post("/api/pokemon/", async (req, res) => {
   let offset = req.body.page;
