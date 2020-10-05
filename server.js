@@ -28,7 +28,6 @@ app.post("/api/pokemon/", async (req, res) => {
   } catch (err) {
     console.log(err);
   }
-
   res.json(pokemon);
 });
 
@@ -81,8 +80,6 @@ app.get("*", (req, res) => {
   console.log("no rquest rrro");
   res.sendFile(path.join(__dirname + "/client/build/index.html"));
 });
-
-//const port = 5000;
 
 function doRequest(url) {
   return new Promise(function (resolve, reject) {

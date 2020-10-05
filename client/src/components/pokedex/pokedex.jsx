@@ -131,10 +131,23 @@ function Pokedex() {
   const [params, setParams] = useState("");
   const [modalShow, setModalShow] = useState(false); //modal state
   const [infoUrl, setInfoUrl] = useState("");
+  const [reverse, setReverse] = useState(false);
+  const [sorted, setSort] = useState(false);
   let data = GrabData(page);
   let allData = AllData().results;
+  let pokemons;
 
-  let pokemons = data.results;
+  if (reverse === true) {
+    pokemons = [...data.results].reverse();
+  } else if (sorted === true) {
+    pokemons = [...data.results].sort(function (a, b) {
+      var textA = a.name.toUpperCase();
+      var textB = b.name.toUpperCase();
+      return textA < textB ? -1 : textA > textB ? 1 : 0;
+    });
+  } else {
+    pokemons = data.results;
+  }
   if (pokemons != null && params.length > 0) {
     pokemons = allData;
     pokemons = pokemons.filter(function (poke) {
@@ -143,12 +156,12 @@ function Pokedex() {
   }
 
   function handleClickNext() {
-    let newPage = page + 10;
+    let newPage = page + 20;
     setPage(newPage);
     // GrabData(page);
   }
   function handleClickPrev() {
-    let newPage = page - 10;
+    let newPage = page - 20;
     setPage(newPage);
   }
 
@@ -158,6 +171,13 @@ function Pokedex() {
   }
   function onParamChange(e) {
     setParams(e.target.value);
+  }
+  function handleOrder() {
+    setReverse(!reverse);
+    setSort(false);
+  }
+  function handleAOrder() {
+    setSort(!sorted);
   }
 
   if (pokemons != null) {
@@ -195,8 +215,12 @@ function Pokedex() {
         <Table striped bordered hover>
           <thead>
             <tr>
-              <th>#</th>
-              <th>Name</th>
+              <th>
+                # <span onClick={handleOrder}>&#8645;</span>
+              </th>
+              <th>
+                Name <span onClick={handleAOrder}>&#8645;</span>
+              </th>
               <th>Info</th>
             </tr>
           </thead>
@@ -208,7 +232,7 @@ function Pokedex() {
                     .replace("https://pokeapi.co/api/v2/pokemon/", "")
                     .replace("/", "")}
                 </td>
-                <td>{pokemon.name}</td>
+                <td className="tableName">{pokemon.name}</td>
                 <td>
                   <Button
                     variant="info"
@@ -216,7 +240,7 @@ function Pokedex() {
                       moreInfo(pokemon.url);
                     }}
                   >
-                    info
+                    Info
                   </Button>
                 </td>
               </tr>

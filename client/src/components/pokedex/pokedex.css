@@ -5,3 +5,6 @@
 .pokeContainer {
   margin: 1em;
 }
+.tableName {
+  text-transform: capitalize;
+}

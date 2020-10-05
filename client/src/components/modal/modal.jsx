@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
-import { Button, Table, Modal, Badge, Form, Col } from "react-bootstrap";
+import { Modal, Badge } from "react-bootstrap";
+import "./modal.css";
 
 function MyModal(props) {
   const [pokemons, setPokemon] = useState(null);
@@ -22,7 +23,7 @@ function MyModal(props) {
         .then((pokemon) => setPokemon(pokemon));
     }
   }, [props]);
-  //if (pokemons != null) console.log(pokemons);
+
   if (pokemons != null) {
     let type;
     if (pokemons.types[0].type.name === "grass") {
@@ -45,24 +46,22 @@ function MyModal(props) {
         aria-labelledby="contained-modal-title-vcenter"
         centered
       >
-        <Modal.Header closeButton>
+        <Modal.Header closeButton className="modalHeader">
           <img src={pokemons.sprites.front_default} alt=""></img>
-          <Modal.Title id="contained-modal-title-vcenter">
-            {pokemons.name}
-          </Modal.Title>
+          <Modal.Title className="modalTitle">{pokemons.name}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Badge pill variant={type}>
+          <Badge pill variant={type} className="badgeType">
             {pokemons.types[0].type.name}
           </Badge>
           <h3>Stats</h3>
           <div style={{ wordBreak: "break-all" }}>
-            <span>height: </span>
-            <span>{pokemons.height}</span>
+            <span>Height: </span>
+            <span>{pokemons.height}"</span>
           </div>
           <div style={{ wordBreak: "break-all" }}>
-            <span>weight: </span>
-            <span>{pokemons.weight}</span>
+            <span>Weight: </span>
+            <span>{pokemons.weight}lb</span>
           </div>
           <div style={{ wordBreak: "break-all" }}>
             <span>Base Power: </span>
@@ -87,7 +86,7 @@ function MyModal(props) {
           <Modal.Title id="contained-modal-title-vcenter">Loading</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <h1>modal</h1>
+          <h1>...</h1>
         </Modal.Body>
       </Modal>
     );
