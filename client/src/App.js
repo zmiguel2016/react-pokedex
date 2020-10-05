@@ -15,6 +15,7 @@ function App() {
         />
         <h1>React Pokedex</h1>
       </header>
+      <Pokedex />
     </div>
   );
 }
