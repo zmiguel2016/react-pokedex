@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/static/css/main.5616d27f.chunk.css",
+    "main.js": "/static/js/main.2e2dbf2c.chunk.js",
+    "main.js.map": "/static/js/main.2e2dbf2c.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.4633ecf4.js",
+    "runtime-main.js.map": "/static/js/runtime-main.4633ecf4.js.map",
+    "static/css/2.d9ad5f5c.chunk.css": "/static/css/2.d9ad5f5c.chunk.css",
+    "static/js/2.2e1d64a9.chunk.js": "/static/js/2.2e1d64a9.chunk.js",
+    "static/js/2.2e1d64a9.chunk.js.map": "/static/js/2.2e1d64a9.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.543bde5c929707cd687d2665bb536d1f.js": "/precache-manifest.543bde5c929707cd687d2665bb536d1f.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/2.d9ad5f5c.chunk.css.map": "/static/css/2.d9ad5f5c.chunk.css.map",
+    "static/css/main.5616d27f.chunk.css.map": "/static/css/main.5616d27f.chunk.css.map",
+    "static/js/2.2e1d64a9.chunk.js.LICENSE.txt": "/static/js/2.2e1d64a9.chunk.js.LICENSE.txt",
+    "static/media/react-pokeball.svg": "/static/media/react-pokeball.a531dfa9.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.4633ecf4.js",
+    "static/css/2.d9ad5f5c.chunk.css",
+    "static/js/2.2e1d64a9.chunk.js",
+    "static/css/main.5616d27f.chunk.css",
+    "static/js/main.2e2dbf2c.chunk.js"
+  ]
+}
