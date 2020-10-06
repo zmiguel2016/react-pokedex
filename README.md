@@ -16,7 +16,7 @@ API calls are made to Pokemon API:
 * [Pokemon API](https://pokeapi.co/)
 
 
-# Development, Debug, and Testing
+# Development and Testing
 ## Setup
 
 Clone the project from GitHub:
