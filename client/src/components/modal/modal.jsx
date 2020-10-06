@@ -4,12 +4,12 @@ import { Modal, Badge } from "react-bootstrap";
 import "./modal.css";
 
 function MyModal(props) {
-  const [pokemons, setPokemon] = useState(null);
-  //console.log(props.pokemon);
-  const body = {
-    url: props.pokemon,
-  };
+  const [pokemons, setPokemon] = useState(null); //modal pokemon state variable
 
+  const body = {
+    url: props.pokemon, //url of pokemon info being requested
+  };
+  //fetch pokemon info from server
   useEffect(() => {
     if (body.url.length > 0) {
       fetch("api/pokeinfo/", {
@@ -24,7 +24,9 @@ function MyModal(props) {
     }
   }, [props]);
 
+  //Once promise has been fullfilled
   if (pokemons != null) {
+    //pokemon type for bagde colors
     let type;
     if (pokemons.types[0].type.name === "grass") {
       type = "success";
@@ -40,12 +42,7 @@ function MyModal(props) {
       type = "info";
     }
     return (
-      <Modal
-        {...props}
-        size="lg"
-        aria-labelledby="contained-modal-title-vcenter"
-        centered
-      >
+      <Modal {...props} size="lg" centered>
         <Modal.Header closeButton className="modalHeader">
           <img src={pokemons.sprites.front_default} alt=""></img>
           <Modal.Title className="modalTitle">{pokemons.name}</Modal.Title>
@@ -75,15 +72,11 @@ function MyModal(props) {
       </Modal>
     );
   } else {
+    //awaiting promise
     return (
-      <Modal
-        {...props}
-        size="lg"
-        aria-labelledby="contained-modal-title-vcenter"
-        centered
-      >
+      <Modal {...props} size="lg" centered>
         <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-vcenter">Loading</Modal.Title>
+          <Modal.Title>Loading</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <h1>...</h1>

@@ -4,102 +4,11 @@ import { Button, Table, Form, Col } from "react-bootstrap";
 import MyModal from "../modal/modal";
 import "./pokedex.css";
 
-// function MyModal(props) {
-//   const [pokemons, setPokemon] = useState(null);
-//   //console.log(props.pokemon);
-//   const body = {
-//     url: props.pokemon,
-//   };
-
-//   useEffect(() => {
-//     if (body.url.length > 0) {
-//       fetch("api/pokeinfo/", {
-//         method: "POST",
-//         headers: {
-//           "Content-Type": "application/json",
-//         },
-//         body: JSON.stringify(body),
-//       })
-//         .then((res) => res.json())
-//         .then((pokemon) => setPokemon(pokemon));
-//     }
-//   }, [props]);
-//   //if (pokemons != null) console.log(pokemons);
-//   if (pokemons != null) {
-//     let type;
-//     if (pokemons.types[0].type.name === "grass") {
-//       type = "success";
-//     } else if (pokemons.types[0].type.name === "bug") {
-//       type = "success";
-//     } else if (pokemons.types[0].type.name === "fire") {
-//       type = "danger";
-//     } else if (pokemons.types[0].type.name === "water") {
-//       type = "primary";
-//     } else if (pokemons.types[0].type.name === "electric") {
-//       type = "warning";
-//     } else {
-//       type = "info";
-//     }
-//     return (
-//       <Modal
-//         {...props}
-//         size="lg"
-//         aria-labelledby="contained-modal-title-vcenter"
-//         centered
-//       >
-//         <Modal.Header closeButton>
-//           <img src={pokemons.sprites.front_default} alt=""></img>
-//           <Modal.Title id="contained-modal-title-vcenter">
-//             {pokemons.name}
-//           </Modal.Title>
-//         </Modal.Header>
-//         <Modal.Body>
-//           <Badge pill variant={type}>
-//             {pokemons.types[0].type.name}
-//           </Badge>
-//           <h3>Stats</h3>
-//           <div style={{ wordBreak: "break-all" }}>
-//             <span>height: </span>
-//             <span>{pokemons.height}</span>
-//           </div>
-//           <div style={{ wordBreak: "break-all" }}>
-//             <span>weight: </span>
-//             <span>{pokemons.weight}</span>
-//           </div>
-//           <div style={{ wordBreak: "break-all" }}>
-//             <span>Base Power: </span>
-//             <span>{pokemons.stats[0].base_stat}</span>
-//           </div>
-//           <div style={{ wordBreak: "break-all" }}>
-//             <span>Base XP: </span>
-//             <span>{pokemons.base_experience}</span>
-//           </div>
-//         </Modal.Body>
-//       </Modal>
-//     );
-//   } else {
-//     return (
-//       <Modal
-//         {...props}
-//         size="lg"
-//         aria-labelledby="contained-modal-title-vcenter"
-//         centered
-//       >
-//         <Modal.Header closeButton>
-//           <Modal.Title id="contained-modal-title-vcenter">Loading</Modal.Title>
-//         </Modal.Header>
-//         <Modal.Body>
-//           <h1>modal</h1>
-//         </Modal.Body>
-//       </Modal>
-//     );
-//   }
-// }
-
+//fetches data from server, returns an array of 20 pokemon
 function GrabData(page) {
-  const [pokemons, setPokemon] = useState([]);
+  const [pokemons, setPokemon] = useState([]); //pokemon state variable
   const body = {
-    page: page,
+    page: page, // page variable
   };
   useEffect(() => {
     fetch("/api/pokemon/", {
@@ -115,8 +24,9 @@ function GrabData(page) {
   return pokemons;
 }
 
+//fetches data from sever, returns an array of all pokemon
 function AllData() {
-  const [pokemons, setPokemon] = useState([]);
+  const [pokemons, setPokemon] = useState([]); //pokemon state variable
 
   useEffect(() => {
     fetch("/api/allpokemon/")
@@ -126,61 +36,72 @@ function AllData() {
   return pokemons;
 }
 
+//main function
 function Pokedex() {
-  const [page, setPage] = useState(0);
-  const [params, setParams] = useState("");
+  const [page, setPage] = useState(0); //page state
+  const [params, setParams] = useState(""); //serach params state
   const [modalShow, setModalShow] = useState(false); //modal state
-  const [infoUrl, setInfoUrl] = useState("");
-  const [reverse, setReverse] = useState(false);
-  const [sorted, setSort] = useState(false);
-  let data = GrabData(page);
-  let allData = AllData().results;
-  let pokemons;
+  const [infoUrl, setInfoUrl] = useState(""); //pokemon url state (for retriving certain pokemons infromation function)
+  const [reverse, setReverse] = useState(false); //reverse order state
+  const [sorted, setSort] = useState(false); //alphabetical order state
+
+  let data = GrabData(page); //1 page worth of data  20 pokemon
+  let allData = AllData().results; //full pokemon list
+  let pokemons; //array object contain all pokemon displayed in curtain table
 
   if (reverse === true) {
-    pokemons = [...data.results].reverse();
+    pokemons = [...data.results].reverse(); //reverses order of list by number
   } else if (sorted === true) {
     pokemons = [...data.results].sort(function (a, b) {
       var textA = a.name.toUpperCase();
       var textB = b.name.toUpperCase();
       return textA < textB ? -1 : textA > textB ? 1 : 0;
-    });
+    }); //sorts alphabecital (only a-z not z-a)
   } else {
-    pokemons = data.results;
+    pokemons = data.results; //normal order
   }
+
+  //search function
   if (pokemons != null && params.length > 0) {
     pokemons = allData;
     pokemons = pokemons.filter(function (poke) {
-      return poke.name.includes(params.toLowerCase());
+      return poke.name.includes(params.toLowerCase()); //filters pokemon to ones that contain the letters in the params
     });
   }
 
   function handleClickNext() {
+    //next page
     let newPage = page + 20;
     setPage(newPage);
-    // GrabData(page);
   }
   function handleClickPrev() {
+    //prev page
     let newPage = page - 20;
     setPage(newPage);
   }
 
   function moreInfo(url) {
+    //opens modal of pokemon with more info
     setInfoUrl(url);
     setModalShow(true);
   }
   function onParamChange(e) {
+    //handles search params
     setParams(e.target.value);
   }
+
   function handleOrder() {
+    //changes ordered by number
     setReverse(!reverse);
     setSort(false);
   }
   function handleAOrder() {
+    //changes order alphabetically
     setSort(!sorted);
   }
 
   if (pokemons != null) {
+    //if pokemons array has values
     return (
       <div className="pokeContainer">
         <Form className="mb-4">
@@ -198,7 +119,7 @@ function Pokedex() {
         <Button
           className="mb-3"
           variant="success"
-          hidden={!data.previous}
+          hidden={!data.previous} //hidden if there is no prev page
           onClick={handleClickPrev}
         >
           Prev
@@ -206,7 +127,7 @@ function Pokedex() {
         <Button
           className="mb-3 addbtn"
           variant="success"
-          hidden={!data.next}
+          hidden={!data.next} //hidden if there is no next page
           onClick={handleClickNext}
         >
           Next
@@ -254,7 +175,7 @@ function Pokedex() {
         />
       </div>
     );
-  } else return <h1>loading</h1>;
+  } else return <h1>loading</h1>; //stil awaiting promise
 }
 
 export default Pokedex;
