@@ -1,6 +1,6 @@
 # react-pokedex
 
-This full-stack node/express/react application serves as a pokedex for you to find your favorite pokemon and see their stats. All the data is pulled from the [Pokemon API](https://pokeapi.co/) and is served by the node sever and rendered client side.
+This full-stack node/express/react application serves as a pokedex for you to find your favorite pokemon and see their stats. All the data is pulled from the [Pokemon API](https://pokeapi.co/) and is served by the node server and rendered client side.
 
 Run web app through browser https://myreact-pokedex.herokuapp.com/
 
